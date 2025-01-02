@@ -351,6 +351,20 @@ const UI = {
             .addEventListener('change', UI.clipboardSend);
         document.getElementById("noVNC_clipboard_clear_button")
             .addEventListener('click', UI.clipboardClear);
+        // 监听剪贴板变化，发送到服务端
+        let data = null;
+        setInterval(async () => {
+            try {
+                const text = await navigator.clipboard.readText();
+                if(data !== text){
+                    document.getElementById("noVNC_clipboard_text").value = text
+                    UI.clipboardSend()
+                }
+                data = text;
+            } catch (e) {
+                console.error(e)
+            }
+        }, 1000)
     },
 
     // Add a call to save settings when the element changes,
@@ -861,11 +875,14 @@ const UI = {
         Log.Debug(">> UI.clipboardReceive: " + e.detail.text.substr(0, 40) + "...");
         document.getElementById('noVNC_clipboard_text').value = e.detail.text;
         Log.Debug("<< UI.clipboardReceive");
+        // 接收服务端复制内容，写入剪贴板
+        UI.clipboardWriteText(e.detail.text);
     },
 
     clipboardClear() {
         document.getElementById('noVNC_clipboard_text').value = "";
         UI.rfb.clipboardPasteFrom("");
+        UI.clipboardWriteText("");
     },
 
     clipboardSend() {
@@ -874,6 +891,16 @@ const UI = {
         UI.rfb.clipboardPasteFrom(text);
         Log.Debug("<< UI.clipboardSend");
     },
+
+    clipboardWriteText(text){
+        setTimeout(async () => {
+            try {
+                await navigator.clipboard.writeText(text);
+            } catch (e) {
+            }
+        }, 1)
+    },
+
 
 /* ------^-------
  *  /CLIPBOARD
