@@ -5,7 +5,7 @@
 # https://github.com/jlesage/docker-baseimage-gui
 #
 
-ARG BASEIMAGE=jlesage/baseimage:ubuntu-22.04-v3.6.3
+ARG BASEIMAGE=nvidia/opengl:1.0-glvnd-devel-ubuntu22.04
 
 # Define the Alpine packages to be installed into the image.
 ARG ALPINE_PKGS="\
@@ -272,7 +272,7 @@ RUN \
     if [ -n "$(which apk)" ]; then \
         add-pkg ${ALPINE_PKGS}; \
     else \
-        add-pkg ${DEBIAN_PKGS}; \
+        apt-get update && apt-get install -y ${DEBIAN_PKGS}; \
     fi && \
     # Remove some unneeded stuff.
     rm -rf /var/cache/fontconfig/*
