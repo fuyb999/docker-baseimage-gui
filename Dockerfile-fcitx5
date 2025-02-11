@@ -5,7 +5,7 @@
 # https://github.com/jlesage/docker-baseimage-gui
 #
 
-ARG BASEIMAGE=fuyb/baseimage:ubuntu-22.04-opengl
+ARG BASEIMAGE=unknown
 
 # Define the Alpine packages to be installed into the image.
 ARG ALPINE_PKGS="\
