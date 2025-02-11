@@ -1169,3 +1169,7 @@ tips:
     window) should be adapted to use the new mechanism. See the
     [Maximizing Only the Main Window](#maximizing-only-the-main-window) section.
 
+#### How to build
+```shell
+sudo docker build -f Dockerfile-fcitx5 --build-arg BASEIMAGE=ubuntu:22.04 -t fuyb/baseimage-gui:ubuntu-22.04-v4.6.7 .
+```
