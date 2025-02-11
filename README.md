@@ -1171,5 +1171,5 @@ tips:
 
 #### How to build
 ```shell
-sudo docker build -f Dockerfile-fcitx5 --build-arg BASEIMAGE=ubuntu:22.04 -t fuyb/baseimage-gui:ubuntu-22.04-v4.6.7 .
+sudo docker build -f Dockerfile-fcitx5 --build-arg BASEIMAGE=jlesage/baseimage:ubuntu-22.04-v3.6.5 -t fuyb/baseimage-gui:ubuntu-22.04-v4.6.7 .
 ```
